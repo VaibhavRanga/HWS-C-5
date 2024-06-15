@@ -5,10 +5,13 @@
 //  Created by Vaibhav Ranga on 11/06/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @State private var users = [User]()
+    @Environment(\.modelContext) var modelContext
+    
+    @Query var users: [User]
     
     var body: some View {
         NavigationStack {
@@ -30,7 +33,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Friends")
+            .navigationTitle("Friends Face")
             .navigationDestination(for: User.self) { user in
                 UserDetailView(user: user)
             }
@@ -55,7 +58,10 @@ struct ContentView: View {
 
             if let decodedData = try? decoder.decode([User].self, from: data) {
                 print(data)
-                users = decodedData
+                
+                for user in decodedData {
+                    modelContext.insert(user)
+                }
             }
         } catch {
             print("Invalid data")
@@ -65,4 +71,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: User.self, inMemory: true)
 }
