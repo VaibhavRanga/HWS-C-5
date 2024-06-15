@@ -20,51 +20,52 @@ class User: Codable, Identifiable {
     let about : String
     let registered : String
     let tags : [String]
-//    @Relationship(inverse: \Friend.owner)
-    var friends: [Friend]
+    
+    @Relationship(inverse: \Friend.owner)
+    var friends = [Friend]()
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case isActive
-        case name
-        case age
-        case company
-        case email
-        case address
-        case about
-        case registered
-        case tags
-        case friends
+        case _id = "id"
+        case _isActive = "isActive"
+        case _name = "name"
+        case _age = "age"
+        case _company = "company"
+        case _email = "email"
+        case _address = "address"
+        case _about = "about"
+        case _registered = "registered"
+        case _tags = "tags"
+        case _friends = "friends"
     }
     
     required init(from decoder: any Decoder) throws {
         let container: KeyedDecodingContainer<User.CodingKeys> = try decoder.container(keyedBy: User.CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: User.CodingKeys.id)
-        self.isActive = try container.decode(Bool.self, forKey: User.CodingKeys.isActive)
-        self.name = try container.decode(String.self, forKey: User.CodingKeys.name)
-        self.age = try container.decode(Int.self, forKey: User.CodingKeys.age)
-        self.company = try container.decode(String.self, forKey: User.CodingKeys.company)
-        self.email = try container.decode(String.self, forKey: User.CodingKeys.email)
-        self.address = try container.decode(String.self, forKey: User.CodingKeys.address)
-        self.about = try container.decode(String.self, forKey: User.CodingKeys.about)
-        self.registered = try container.decode(String.self, forKey: User.CodingKeys.registered)
-        self.tags = try container.decode([String].self, forKey: User.CodingKeys.tags)
-        self.friends = try container.decode([Friend].self, forKey: User.CodingKeys.friends)
+        self.id = try container.decode(String.self, forKey: User.CodingKeys._id)
+        self.isActive = try container.decode(Bool.self, forKey: User.CodingKeys._isActive)
+        self.name = try container.decode(String.self, forKey: User.CodingKeys._name)
+        self.age = try container.decode(Int.self, forKey: User.CodingKeys._age)
+        self.company = try container.decode(String.self, forKey: User.CodingKeys._company)
+        self.email = try container.decode(String.self, forKey: User.CodingKeys._email)
+        self.address = try container.decode(String.self, forKey: User.CodingKeys._address)
+        self.about = try container.decode(String.self, forKey: User.CodingKeys._about)
+        self.registered = try container.decode(String.self, forKey: User.CodingKeys._registered)
+        self.tags = try container.decode([String].self, forKey: User.CodingKeys._tags)
+        self.friends = try container.decode([Friend].self, forKey: User.CodingKeys._friends)
     }
     
     func encode(to encoder: any Encoder) throws {
         var container: KeyedEncodingContainer<User.CodingKeys> = encoder.container(keyedBy: User.CodingKeys.self)
-        try container.encode(self.id, forKey: User.CodingKeys.id)
-        try container.encode(self.isActive, forKey: User.CodingKeys.isActive)
-        try container.encode(self.name, forKey: User.CodingKeys.name)
-        try container.encode(self.age, forKey: User.CodingKeys.age)
-        try container.encode(self.company, forKey: User.CodingKeys.company)
-        try container.encode(self.email, forKey: User.CodingKeys.email)
-        try container.encode(self.address, forKey: User.CodingKeys.address)
-        try container.encode(self.about, forKey: User.CodingKeys.about)
-        try container.encode(self.registered, forKey: User.CodingKeys.registered)
-        try container.encode(self.tags, forKey: User.CodingKeys.tags)
-        try container.encode(self.friends, forKey: User.CodingKeys.friends)
+        try container.encode(self.id, forKey: User.CodingKeys._id)
+        try container.encode(self.isActive, forKey: User.CodingKeys._isActive)
+        try container.encode(self.name, forKey: User.CodingKeys._name)
+        try container.encode(self.age, forKey: User.CodingKeys._age)
+        try container.encode(self.company, forKey: User.CodingKeys._company)
+        try container.encode(self.email, forKey: User.CodingKeys._email)
+        try container.encode(self.address, forKey: User.CodingKeys._address)
+        try container.encode(self.about, forKey: User.CodingKeys._about)
+        try container.encode(self.registered, forKey: User.CodingKeys._registered)
+        try container.encode(self.tags, forKey: User.CodingKeys._tags)
+        try container.encode(self.friends, forKey: User.CodingKeys._friends)
     }
 }
 
@@ -75,22 +76,19 @@ class Friend: Codable, Identifiable {
     var owner: User?
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
-//        case _owner = "owner"
+        case _id = "id"
+        case _name = "name"
     }
     
     required init(from decoder: any Decoder) throws {
         let container: KeyedDecodingContainer<Friend.CodingKeys> = try decoder.container(keyedBy: Friend.CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: Friend.CodingKeys.id)
-        self.name = try container.decode(String.self, forKey: Friend.CodingKeys.name)
-//        self.owner = try container.decode(User?.self, forKey: Friend.CodingKeys._owner)
+        self.id = try container.decode(String.self, forKey: Friend.CodingKeys._id)
+        self.name = try container.decode(String.self, forKey: Friend.CodingKeys._name)
     }
     
     func encode(to encoder: any Encoder) throws {
         var container: KeyedEncodingContainer<Friend.CodingKeys> = encoder.container(keyedBy: Friend.CodingKeys.self)
-        try container.encode(self.id, forKey: Friend.CodingKeys.id)
-        try container.encode(self.name, forKey: Friend.CodingKeys.name)
-//        try container.encode(self.owner, forKey: Friend.CodingKeys._owner)
+        try container.encode(self.id, forKey: Friend.CodingKeys._id)
+        try container.encode(self.name, forKey: Friend.CodingKeys._name)
     }
 }

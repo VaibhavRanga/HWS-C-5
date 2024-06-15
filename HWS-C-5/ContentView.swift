@@ -57,7 +57,6 @@ struct ContentView: View {
             let (data, _) = try await URLSession.shared.data(from: url)
 
             if let decodedData = try? decoder.decode([User].self, from: data) {
-                print(data)
                 
                 for user in decodedData {
                     modelContext.insert(user)
