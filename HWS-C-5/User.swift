@@ -20,9 +20,7 @@ class User: Codable, Identifiable {
     let about : String
     let registered : String
     let tags : [String]
-    
-    @Relationship(inverse: \Friend.owner)
-    var friends = [Friend]()
+    let friends: [Friend]
     
     enum CodingKeys: String, CodingKey {
         case _id = "id"
@@ -69,26 +67,26 @@ class User: Codable, Identifiable {
     }
 }
 
-@Model
-class Friend: Codable, Identifiable {
+//@Model
+struct Friend: Codable, Identifiable {
     let id: String
     let name: String
-    var owner: User?
+//    let owner: User?
     
-    enum CodingKeys: String, CodingKey {
-        case _id = "id"
-        case _name = "name"
-    }
-    
-    required init(from decoder: any Decoder) throws {
-        let container: KeyedDecodingContainer<Friend.CodingKeys> = try decoder.container(keyedBy: Friend.CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: Friend.CodingKeys._id)
-        self.name = try container.decode(String.self, forKey: Friend.CodingKeys._name)
-    }
-    
-    func encode(to encoder: any Encoder) throws {
-        var container: KeyedEncodingContainer<Friend.CodingKeys> = encoder.container(keyedBy: Friend.CodingKeys.self)
-        try container.encode(self.id, forKey: Friend.CodingKeys._id)
-        try container.encode(self.name, forKey: Friend.CodingKeys._name)
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case _id = "id"
+//        case _name = "name"
+//    }
+//    
+//    required init(from decoder: any Decoder) throws {
+//        let container: KeyedDecodingContainer<Friend.CodingKeys> = try decoder.container(keyedBy: Friend.CodingKeys.self)
+//        self.id = try container.decode(UUID.self, forKey: Friend.CodingKeys._id)
+//        self.name = try container.decode(String.self, forKey: Friend.CodingKeys._name)
+//    }
+//    
+//    func encode(to encoder: any Encoder) throws {
+//        var container: KeyedEncodingContainer<Friend.CodingKeys> = encoder.container(keyedBy: Friend.CodingKeys.self)
+//        try container.encode(self.id, forKey: Friend.CodingKeys._id)
+//        try container.encode(self.name, forKey: Friend.CodingKeys._name)
+//    }
 }
